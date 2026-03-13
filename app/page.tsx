@@ -10,7 +10,6 @@ interface Project {
   tech: string[];
   color: string;
   github: string;
-  emoji: string;
 }
 
 interface ProjectCardProps {
@@ -28,8 +27,7 @@ const projects: Project[] = [
       "An interactive Kakuro puzzle game with dynamic grid generation, a friend system, hints, achievements, and full puzzle validation logic.",
     tech: ["Next.js", "TypeScript", "CSS"],
     color: "#e8ff47",
-    github: "https://github.com/Mate-1996/Kakuro-Game",
-    emoji: "🎮",
+    github: "https://github.com/Mate-1996/Kakuro-Game"
   },
   {
     id: 2,
@@ -40,8 +38,7 @@ const projects: Project[] = [
       "A collaborative trading card platform that lets users browse, collect, and manage cards, built as a team project with real-time data management.",
     tech: ["React", "JavaScript", "Node.js"],
     color: "#ff6b47",
-    github: "https://github.com/CongHuyVHS/prjTradingCard",
-    emoji: "🃏",
+    github: "https://github.com/CongHuyVHS/prjTradingCard"
   },
   {
     id: 3,
@@ -52,8 +49,7 @@ const projects: Project[] = [
       "A full-stack moving website with customer booking, Firebase Realtime Database, an admin dashboard for managing bookings and reviews, and a responsive booking form.",
     tech: ["Next.js", "TypeScript", "Firebase"],
     color: "#47c5ff",
-    github: "https://github.com/Mate-1996/Moving-App",
-    emoji: "📦",
+    github: "https://github.com/Mate-1996/project_moving_website"
   },
 ];
 
@@ -67,6 +63,7 @@ const contactLinks = [
   { label: "matechachkiani@gmail.com", href: "mailto:matechachkiani@gmail.com", icon: "✉" },
   { label: "514-690-5424", href: "tel:5146905424", icon: "✆" },
   { label: "github.com/Mate-1996", href: "https://github.com/Mate-1996", icon: "⌥" },
+  { label: "linkedin.com/in/mate-chachkhiani", href: "https://www.linkedin.com/in/mate-chachkhiani-191196388", icon: "in" },
   { label: "Sainte-Thérèse, QC", href: null, icon: "◎" },
 ];
 
@@ -159,7 +156,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
             {project.title}
           </h3>
         </div>
-        <span style={{ fontSize: "28px", userSelect: "none" }}>{project.emoji}</span>
+        <span style={{ fontSize: "28px", userSelect: "none" }}></span>
       </div>
 
       <p
@@ -223,6 +220,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
 
 export default function Portfolio() {
   const [scrollY, setScrollY] = useState(0);
+  const [cvHovered, setCvHovered] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
   const aboutRef = useRef<HTMLElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
@@ -262,6 +260,7 @@ export default function Portfolio() {
         @media (max-width: 600px) {
           .hero-grid { grid-template-columns: 1fr !important; }
           .pfp { display: none; }
+          .cv-label { display: none; }
         }
       `}</style>
 
@@ -305,7 +304,8 @@ export default function Portfolio() {
         >
           MC<span style={{ color: "#e8ff47" }}>.</span>
         </span>
-        <div style={{ display: "flex", gap: "28px" }}>
+
+        <div style={{ display: "flex", alignItems: "center", gap: "28px" }}>
           {["About", "Skills", "Projects"].map((item) => (
             <a
               key={item}
@@ -323,6 +323,49 @@ export default function Portfolio() {
               {item}
             </a>
           ))}
+
+          {/* ── CV Download Button ── */}
+          <a
+            href="/Mate_Chachkhiani_CV.pdf"
+            download="Mate_Chachkhiani_CV.pdf"
+            onMouseEnter={() => setCvHovered(true)}
+            onMouseLeave={() => setCvHovered(false)}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "7px",
+              fontFamily: "'Space Mono', monospace",
+              fontSize: "11px",
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              textDecoration: "none",
+              color: cvHovered ? "#0c0c0e" : "#e8ff47",
+              background: cvHovered ? "#e8ff47" : "transparent",
+              border: "1px solid #e8ff47",
+              borderRadius: "6px",
+              padding: "7px 14px",
+              transition: "all 0.2s ease",
+              boxShadow: cvHovered ? "0 0 20px rgba(232,255,71,0.25)" : "none",
+            }}
+          >
+            <svg
+              width="11"
+              height="11"
+              viewBox="0 0 12 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ flexShrink: 0 }}
+            >
+              <path
+                d="M6 1v7M3 5.5l3 3 3-3M1 10h10"
+                stroke={cvHovered ? "#0c0c0e" : "#e8ff47"}
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <span className="cv-label">Resume</span>
+          </a>
         </div>
       </nav>
 
@@ -543,7 +586,6 @@ export default function Portfolio() {
           zIndex: 1,
         }}
       >
-        {/* Section header */}
         <div
           style={{
             display: "flex",
